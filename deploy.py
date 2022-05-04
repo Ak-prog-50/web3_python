@@ -1,6 +1,10 @@
 from solcx import compile_standard, install_solc
 import json
 from web3 import Web3
+from dotenv import load_dotenv
+from os import getenv
+
+load_dotenv()
 
 # * Install solc compiler if not installed (i think)
 print("Installing...")
@@ -40,10 +44,10 @@ abi = json.loads(
 )["output"]["abi"]
 
 # * Connecting to Ganache
-w3 = Web3(Web3.HTTPProvider("HTTP://127.0.0.1:7545"))
-chain_id = 5777
-my_address = "0xA1c6bA7bCDFC20C2B09B8F09263bE19F0179044c"
-private_key = "1a1e0f4d00bd4b4f80e88c838f911baff104f55a4583201e6e602f5dd36136dd"
+w3 = Web3(Web3.HTTPProvider(getenv("RPC_URL")))
+network_id = 5777 # Seems like this is not actually needed.
+my_address = getenv("PUBLIC_KEY")
+private_key = getenv("PRIVATE_KEY")
 # print(Web3.toChecksumAddress("A1c6bA7bCDFC20C2B09B8F09263bE19F0179044c"))
 
 # * Creating the contract in python
